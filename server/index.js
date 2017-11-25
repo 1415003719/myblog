@@ -3,7 +3,7 @@ import { Nuxt, Builder } from 'nuxt'
 import Router from './router/index'
 import cros from 'koa-cors'
 import connectDB from './lib/connectDB'
-
+import auth from './middleware/auth'
 const koaBody = require('koa-body')
 
 const app = new Koa()
@@ -33,6 +33,7 @@ if (config.dev) {
   })
 }
 app.use(cros())
+app.use(auth())
 app.use(Router.routes(), Router.allowedMethods())
 app.use(async (ctx, next) => {
   const start = new Date()
